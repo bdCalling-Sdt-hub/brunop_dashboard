@@ -1,10 +1,12 @@
 import { Table } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { LuEye } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import AddPremiumModal from "../AddPremiumModal/AddPremiumModal";
 
 
 const JoinRequest = ({ tableData, pagination }) => {
+  const [openAddModal, setOpenAddModal] = useState(false)
 
   const columns = [
     {
@@ -58,9 +60,9 @@ const JoinRequest = ({ tableData, pagination }) => {
       render: (_, record) => {
         return (
           <div className="flex justify-center gap-2">
-            <Link  className="px-6 py-2 rounded-3xl  font-semibold border text-white bg-[#34C759]  hover:text-white">
+            <button onClick={()=> setOpenAddModal(true)}  className="px-6 py-2 rounded-3xl  font-semibold border text-white bg-[#34C759]  hover:text-white">
               Create
-            </Link>
+            </button>
             <Link className="px-6 py-2 rounded-3xl text-red-500 font-semibold  border border-red-500 hover:bg-red-500 hover:text-white">
               Cancel
             </Link>
@@ -82,6 +84,7 @@ const JoinRequest = ({ tableData, pagination }) => {
         //   },
         // }
       } />
+      <AddPremiumModal openAddModal={openAddModal}  setOpenAddModal={setOpenAddModal}  modalName={"Add Premium User"} />
 
     </div>
   );
