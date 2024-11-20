@@ -34,36 +34,7 @@ const PaymentUser = () => {
             order : "12",
             amount : "$125.00"
         },
-        {
-            key: "4",
-            name: "Lukman Farhan",
-            email: "hill@example.com",
-            location: "775 Rolling Green Rd.",
-            status: "Unpaid",
-            image: user,
-            order : "12",
-            amount : "$125.00"
-        },
-        {
-            key: "5",
-            name: "Dimas Kamal",
-            email: "lawson@example.com",
-            location: "775 Rolling Green Rd.",
-            status: "Unpaid",
-            image: user,
-            order : "12",
-            amount : "$125.00"
-        },
-        {
-            key: "6",
-            name: "Hari Danang",
-            email: "baker@example.com",
-            location: "8080 Railroad St.",
-            status: "Unpaid",
-            image: user1,
-            order : "12",
-            amount : "$125.00"
-        },
+       
         {
             key: "7",
             name: "Alan Marcus",
