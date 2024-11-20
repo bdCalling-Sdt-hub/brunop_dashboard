@@ -1,0 +1,57 @@
+::-webkit-scrollbar {
+    display: none;
+}
+.custom-pagination .ant-pagination-item {
+    background-color: #f0f0f0; /* Custom background color for pagination items */
+    border-radius: 19px; /* Rounded corners for pagination items */
+    margin: 0 4px;
+    
+     /* Custom margin */
+  }
+  .custom-pagination .ant-pagination {
+    display: flex;
+    justify-content: center;
+  }
+  .custom-pagination .ant-pagination-item-active {
+    background-color:  #3475F1 !important;
+  }
+  .custom-pagination .ant-pagination-item-active a {
+    color: white !important;
+  }
+
+  .custom-pagination .ant-pagination-total-text {
+    color: #3475F1 !important;
+  }
+
+
+
+  /* Jodit react for rich text */
+
+  /* Custom CSS to align toolbar buttons to the right */
+
+
+
+
+
+.custom-jodit-editor .jodit-react-container .jodit-container .jodit-toolbar__box .jodit-toolbar-editor-collection {
+  align-items: flex-end
+}
+
+.jodit-footer {
+  display: none !important;
+}
+.custom-jodit-editor .jodit-status-bar{
+  display: none;
+}
+.custom-jodit-editor .jodit-toolbar__box:not(:empty) {
+  border-bottom: 0px;
+}
+
+.custom-jodit-editor .jodit-container:not(.jodit_inline){
+  background-color: #F6F6F6;
+  border: none;
+}
+/* .custom-jodit-editor .jodit-toolbar__box:not(:empty):not(:empty){
+  background-color: #F6F6F6;
+
+} */

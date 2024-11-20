@@ -1,0 +1,10 @@
+/* styles/specificTable.css */
+/* styles/subscription.css */
+.specific-page-table .ant-table-thead > tr > th {
+    background-color: #EAEAEA !important;
+  }
+  
+  .specific-page-table .ant-table-tbody > tr.ant-table-row:nth-child(even) {
+    background-color: #EAEAEA !important;
+  }
+  

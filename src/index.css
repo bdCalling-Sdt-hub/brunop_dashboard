@@ -1,0 +1,94 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-1: #38393E;
+  /* --color-2: #ECB206; */
+  --color-3: #2C2C30;
+  /* --color-4: #6BAE46;
+  --color-5: #F3FBEE;
+  --color-6: #F7F7FB; */
+  --color-7: white;
+  --color-8: #242424;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  font-family: 'Lora', serif;
+}
+
+
+@layer utilities {
+  .start-start {
+    @apply flex justify-start items-start
+  }
+
+  .start-center {
+    @apply flex justify-start items-center
+  }
+
+  .center-center {
+    @apply flex justify-center items-center
+  }
+
+  .between-center {
+    @apply flex justify-between items-center
+  }
+
+  .between-start {
+    @apply flex justify-between items-start
+  }
+
+  .end-center {
+    @apply flex justify-end items-center
+  }
+
+  .grid-2 {
+    @apply grid grid-cols-2 items-center justify-start
+  }
+
+  .grid-3 {
+    @apply grid grid-cols-3 items-center justify-start
+  }
+
+  .grid-4 {
+    @apply grid grid-cols-4 items-center justify-start
+  }
+  .grid-5
+  {
+    @apply md:grid md:grid-cols-2 flex flex-col justify-start items-start md:items-center lg:grid-cols-3 xl:grid-cols-5 gap-4
+  }
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+#sidebar .active{
+  background: var(--color-7);
+}
+
+/* .questions .ant-space-item{
+width: 38% !important;
+} */
+:where(.css-dev-only-do-not-override-98ntnt).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select, :where(.css-dev-only-do-not-override-98ntnt).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload.ant-upload-select {
+  width: 100%;;
+  height: 50px;
+  text-align: center;
+  vertical-align: top;
+  background-color: rgba(0, 0, 0, 0.02);
+  border: 1px dashed #d9d9d9;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+:where(.css-dev-only-do-not-override-98ntnt).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-container, :where(.css-dev-only-do-not-override-98ntnt).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-container, :where(.css-dev-only-do-not-override-98ntnt).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item-container, :where(.css-dev-only-do-not-override-98ntnt).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item-container {
+  display: inline-block;
+  width: 479px;
+  height: 200px;
+  vertical-align: top;
+}
+
+
+
+
