@@ -6,6 +6,7 @@ import { RiDeleteBin6Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import img from '../../assets/images/prod1.jpg'
 import img2 from '../../assets/images/prod2.jpg'
+import { FaPlus } from 'react-icons/fa'
 const ProductManage = () => {
     const dataSource = [
         {
@@ -36,7 +37,7 @@ const ProductManage = () => {
             price: 15,
             store: 300,
             status: "Available",
-            image:img2,
+            image: img2,
         },
         {
             key: "4",
@@ -46,7 +47,7 @@ const ProductManage = () => {
             price: 15,
             store: 2,
             status: "Short Stock",
-            image:img,
+            image: img,
         },
         {
             key: "5",
@@ -109,13 +110,13 @@ const ProductManage = () => {
             render: (status) => {
                 let color = "#EBF7E4";
                 if (status === "Unavailable") color = "#FFCCCC";
-                if (status === "Short Stock") color = "#D6D5E6"; 
+                if (status === "Short Stock") color = "#D6D5E6";
 
                 return (
                     <Button
                         style={{
                             backgroundColor: color,
-                            color: status === "Available" ? "#7CC84E" : "#000", 
+                            color: status === "Available" ? "#7CC84E" : "#000",
                             border: "none",
                             // borderRadius: "4px",
                             padding: "4px 12px",
@@ -132,12 +133,12 @@ const ProductManage = () => {
             render: () => (
                 <div className="flex gap-5 space-x-2">
                     <Link to={'/product-manage/:id'}
-                       className='border-none'
+                        className='border-none'
                     >
                         <CiEdit size={25} />
                     </Link>
                     <p
-                       className='border-none' 
+                        className='border-none'
                     >
                         <RiDeleteBin6Line size={25} />
                     </p>
@@ -154,8 +155,9 @@ const ProductManage = () => {
                     Product Management
 
                 </div>
-                <Input className='max-w-[250px] h-10' prefix={<CiSearch className='text-2xl' />} placeholder="Search here..." />
+                <Link to={'/product-manage/:id'} className='flex items-center gap-1 bg-black text-white px-4 py-2 rounded-md'>Add Products <FaPlus /></Link>
             </div>
+                <Input className='max-w-[250px] h-10' prefix={<CiSearch className='text-2xl' />} placeholder="Search here..." />
             <div className="table-container" style={{ padding: "20px" }}>
                 <div className="flex  gap-5  items-center mb-4">
                     <div className='border-r-2 pr-2'>
