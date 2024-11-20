@@ -99,6 +99,9 @@ const OrderManagement = () => {
                 if (status === "Shipping") color = "#D6EEC8";
                 if (status === "Processing") color = "#E6E5F1";
                 if (status === "Packing") color = "#CCC9E2";
+                return (
+                    <p className={` w-[50%] text-center ${status === "Shipped" ?  "bg-[#7CC84E] text-white": ""}  rounded-md py-1 ${status === "Shipping" ? "bg-[#D6EEC8] text-[#7CC84E]" : ""} ${status === "Pending" ? "text-[#5B52A3] bg-[#EFEEF6]" : ""} ${status === "Processing" ? "text-[#5B52A3] bg-[#E6E5F1] " : ""}  ${status === "Packing" ? "text-[#5B52A3] bg-[#CCC9E2]": ""} `}>{status}</p>
+                )
                
             },
         },
