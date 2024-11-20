@@ -14,16 +14,10 @@ import UpdatePassword from "../Pages/Auth/UpdatePassword.jsx";
 import Subscription from "../Pages/Subscription.jsx";
 import UserDetails from "../Pages/UserDetails.jsx";
 import ManageItems from "../Pages/ManageItems.jsx";
-import MediaSettings from "../Pages/MediaSettings/MediaSettings.jsx";
 import RulesAndRegulation from "../Pages/RulesAndRegulation.jsx";
 import Facts from "../Pages/Facts.jsx";
-import TransactionHistory from "../Pages/TransactionHistory.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 import PrivateLogin from "./PrivateLogin.jsx";
-import TotalHost from "../Pages/TotalHost.jsx";
-import ContactUs from "../Pages/ContactUs/ContactUs.jsx";
-import TripManagement from "../Pages/TripManagement.jsx";
-import HostDetails from "../Pages/HostDetails.jsx";
 import RequestHostDetails from "../Pages/RequestHostDetails/RequestHostDetails.jsx";
 import OrderManagement from "../Pages/OrderManagement/OrderManagement.jsx";
 import ProductManage from "../Pages/ProductManage/ProductManage.jsx";
@@ -84,28 +78,7 @@ export const router = createBrowserRouter([
             {
                 path : '/request-host-details/:id',element : <RequestHostDetails/>
             },
-            {
-                path : "/transaction",
-                element : <TransactionHistory/>
-            },
-            {
-                path : "/total-host",
-                element : <TotalHost/>
-            },
-            {
-                path : "/total-host/:id",
-                element : <HostDetails/>
-            },
-            {
-                path : "/contact-us",
-                element : <ContactUs/>
-            },
-            {
-                path : "/trip-management",
-                element : <TripManagement/>
-            },
-
-           
+            
             {
                 path : '/subscription',
                 element : <Subscription/>
@@ -118,12 +91,7 @@ export const router = createBrowserRouter([
                 path : '/manage-items',
                 element : <ManageItems/>
             },
-            {
-                path : '/destination',
-                element : <MediaSettings/>
-            },
-
-           
+            
             {
                 path: '/privacy-policy',
                 element: <PrivacyPolicy />,

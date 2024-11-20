@@ -20,7 +20,7 @@ const ForgotPassword = () => {
         // navigate("/auth/otp")
     };
     return (
-        <div className="grid grid-cols-2 items-center h-[100vh]"
+        <div className="bg-black flex  justify-center items-center h-[100vh]"
             style={{
                 width: "100%",
                 // background: "#BD8E05",
@@ -29,10 +29,8 @@ const ForgotPassword = () => {
         >
 
 
-            <div className="bg-[#C0D4FB] h-full flex items-center justify-center ">
-                <img src={img} className="object-contain h-[50%]" alt="" />
-            </div>
-            <div className=" bg-white flex justify-center items-center">
+            
+            <div className=" bg-white rounded-md flex justify-center items-center">
                 <Form
                     name="normal_login"
                     className="password-form"
@@ -83,7 +81,7 @@ const ForgotPassword = () => {
                                 height: "45px",
                                 fontWeight: "400px",
                                 fontSize: "18px",
-                                background: "#3475F1",
+                                background: "black",
                                 color: "white",
                                 alignSelf: "bottom",
                                 marginTop: "30px",

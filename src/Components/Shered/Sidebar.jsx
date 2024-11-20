@@ -1,13 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { IoIosArrowForward } from 'react-icons/io'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { CiLocationOn, CiLogout, } from "react-icons/ci";
+import { CiLogout, } from "react-icons/ci";
 import logo  from "../../../src/assets/images/logo.png"
-import { RiCustomerServiceLine, RiDashboard3Line, RiProductHuntLine, RiUser2Line, RiUserSearchLine } from 'react-icons/ri';
-import { BiDollarCircle } from 'react-icons/bi';
-import { FaRegUser } from 'react-icons/fa';
-import { FiPhone } from 'react-icons/fi';
-import { IoGitMergeOutline, IoSettingsOutline } from 'react-icons/io5';
+import { RiCustomerServiceLine, RiDashboard3Line, RiProductHuntLine, RiUser2Line } from 'react-icons/ri';
+import { IoSettingsOutline } from 'react-icons/io5';
 import { MdFormatListNumbered, MdOutlineFeedback } from 'react-icons/md';
 import { LiaIdCard } from 'react-icons/lia';
 
@@ -68,43 +65,6 @@ const Sidebar = () => {
             path: '/premium-user',
             label: 'Premium User',
             icon:<LiaIdCard  size={22}  />,
-            sub_menu: false
-        },
-        {
-            path: '/transaction',
-            label: 'Transaction',
-            icon:<BiDollarCircle size={22}  />,
-            sub_menu: false
-        },
-        {
-            path: '/total-user',
-            label: 'Total User',
-            icon: <FaRegUser size={22}  />,
-            sub_menu: false
-        },
-        {
-            path: '/total-host',
-            label: 'Total Host',
-            icon:<RiUserSearchLine size={22}  />,
-            sub_menu: false
-        },
-
-        {
-            path: '/destination',
-            label: 'Destination',
-            icon: <CiLocationOn size={22}  />,
-            sub_menu: false
-        },
-        {
-            path: '/trip-management',
-            label: 'Trip management',
-            icon: <IoGitMergeOutline size={22}  />,
-            sub_menu: false
-        },
-        {
-            path: '/contact-us',
-            label: 'Contact Management',
-            icon: <FiPhone size={22}  />,
             sub_menu: false
         },
        

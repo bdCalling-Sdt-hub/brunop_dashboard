@@ -28,11 +28,9 @@ const Login = () => {
     };
 
     return (
-        <div className="grid grid-cols-2 items-center h-[100vh]">
-            <div className="bg-[#C0D4FB] h-full flex items-center justify-center">
-                <img src={img} className="" alt="" />
-            </div>
-            <div className="bg-white flex justify-center items-center">
+        <div className="bg-black h-[100vh] flex items-center justify-center">
+            
+            <div className="bg-white flex justify-center  items-center rounded-md">
                 <Form
                     name="normal_login"
                     className="login-form"
@@ -130,11 +128,11 @@ const Login = () => {
                         }}
                     >
                         <Form.Item name="remember" valuePropName="checked" noStyle>
-                            <Checkbox style={{ color: "#6A6D7C" }}>Remember me</Checkbox>
+                            <Checkbox style={{ color: "#000000" }}>Remember me</Checkbox>
                         </Form.Item>
                         <Link
                             className="login-form-forgot "
-                            style={{ color: "#3475F1" }}
+                            style={{ color: "#000000" }}
                             to="/auth/forgot-password"
                         >
                             Forgot Password
@@ -150,7 +148,7 @@ const Login = () => {
                             style={{
                                 fontWeight: "400px",
                                 fontSize: "18px",
-                                background: "#3475F1",
+                                background: "black",
                                 marginTop: "56px",
                             }}
                         >

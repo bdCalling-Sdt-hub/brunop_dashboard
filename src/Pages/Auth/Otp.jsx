@@ -1,16 +1,10 @@
-// import { Button, Form, Input } from "antd";
-// import React, { useState } from "react";
-// import OTPInput from "react-otp-input";
-// import { useDispatch } from "react-redux";
+
 import OtpInput from 'react-otp-input';
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { Button } from "antd";
 import { useVerifyOtpMutation } from '../../redux/Api/userApi';
 import { toast } from 'sonner';
-// import Swal from "sweetalert2";
-// import { ForgetPass } from "../../ReduxSlices/Authentication/ForgetPassSlice";
-// import { VerifyCode } from "../../ReduxSlices/Authentication/VerifyCodeSlice";
 
 const Otp = () => {
     const [verifyOtp] = useVerifyOtpMutation()
@@ -40,7 +34,7 @@ const Otp = () => {
         <div
             style={{
                 width: "100%",
-                background: "#C0D4FB",
+                background: "black",
                 height: "100vh",
                 display: "flex",
                 alignItems: "center",
@@ -80,7 +74,7 @@ const Otp = () => {
                         fontWeight: "400px",
                         fontSize: "18px",
                         color: "white",
-                        background: "#3475F1",
+                        background: "black",
                         marginTop: "30px",
                         border: "none",
                         outline: "none",
@@ -94,7 +88,7 @@ const Otp = () => {
                 </Button>
                 <p style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     Didn’t receive code?
-                    <p onClick={handleResendCode} style={{ color: "#3475F1", textDecoration: "underline", cursor: "pointer" }}>Resend </p>
+                    <p onClick={handleResendCode} style={{ color: "black", textDecoration: "underline", cursor: "pointer" }}>Resend </p>
                 </p>
             </div>
         </div>
