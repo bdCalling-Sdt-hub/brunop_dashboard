@@ -17,7 +17,7 @@ const Terms = () => {
             description: content
         }
         updateAbout(data).unwrap()
-            .then((payload) => toast.success("Update about successfully!"))
+            .then((payload) => toast.success("Update Terms and condition successfully!"))
             .catch((error) => toast.error(error?.data?.message));
     }
     const config = {

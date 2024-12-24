@@ -4,12 +4,22 @@ import React, { useState, useRef, useMemo, useEffect } from 'react';
 import JoditEditor from 'jodit-react';
 import { Link } from 'react-router-dom';
 import { IoArrowBackSharp } from 'react-icons/io5';
+import { useGetRulesAndRegulationQuery, useUpdateRulesAndRegulationMutation } from '../redux/Api/dashboardApi';
+import { toast } from 'sonner';
 const PrivacyPolicy = () => {
+
+    const {data :  getPrivacyPolicy} = useGetRulesAndRegulationQuery()
+    const [updateTermsCondition] = useUpdateRulesAndRegulationMutation()
     const editor = useRef(null);
     const [content, setContent] = useState('');
     const [isLoading, seLoading] = useState(false)
     const handleTerms = () => {
-        console.log(content)
+        const data = {
+            description: content
+        }
+        updateTermsCondition(data).unwrap()
+            .then((payload) => toast.success("Update Terms and condition successfully!"))
+            .catch((error) => toast.error(error?.data?.message));
     }
     const config = {
         readonly: false,
@@ -18,6 +28,10 @@ const PrivacyPolicy = () => {
             height: 400,
         }
     }
+
+      useEffect(()=>{
+            setContent(getPrivacyPolicy?.data?.description)
+        },[getPrivacyPolicy])
     return (
         <>
             <>
@@ -38,7 +52,7 @@ const PrivacyPolicy = () => {
                     />
                 </div>
                 <div className='text-center mt-3'>
-                    <button onClick={handleTerms} className='px-8 py-2 rounded-sm  bg-black text-white' >Save & </button>
+                    <button onClick={handleTerms} className='px-8 py-2 rounded-sm  bg-black text-white' >Update</button>
                 </div>
             </>
         </>
