@@ -1,58 +1,9 @@
 
 import { Select } from 'antd';
+import { useState } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-const data = [
-    {
-        name: 'Jan',
-        uv: 20,
-        mt: 10,
-    },
-    {
-        name: 'Feb',
-        uv: 30,
-        mt: 20,
-    },
-    {
-        name: 'Mar',
-        uv: 90,
-        mt: 30,
-    },
-    {
-        name: 'Apr',
-        uv: 100,
-        mt: 40,
-    },
-    {
-        name: 'May',
-        uv: 30,
-        mt: 50,
-    },
-    {
-        name: 'Jun',
-        uv: 10,
-        mt: 60,
-    },
-    {
-        name: 'Aug',
-        uv: 15,
-        mt: 70,
-    },
-    {
-        name: 'Sep',
-        uv: 20,
-        mt: 80,
-    },
-    {
-        name: 'Nov',
-        uv: 30,
-        mt: 90,
-    },
-    {
-        name: 'Dec',
-        uv: 10,
-        mt: 100,
-    },
-];
+import { useGetIncomeGrowthQuery } from '../../redux/Api/dashboardApi';
+
 const items = [
     {
         label: 2023,
@@ -72,8 +23,21 @@ const items = [
     },
 ];
 const SubscriptionGrowth = () => {
+     const [year, setYear] = useState('2024')
+
+     const {data :  getIncomeGrowth} = useGetIncomeGrowthQuery(year)
+
+     const data = getIncomeGrowth?.data?.data?.map((income, i )=>{
+        return (
+            {
+                name: income?.month,
+                uv: income?.totalIncome,
+            }
+        )
+     })
+
     const handleChange = (value) => {
-        console.log(`selected ${value}`);
+        setYear(value);
     };
     return (
         <>
