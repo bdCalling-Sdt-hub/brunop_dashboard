@@ -9,63 +9,42 @@ import user from './assets/images/use4.png'
 import car1 from './assets/images/car.png'
 import car2 from './assets/images/car2.png'
 import car3 from './assets/images/car3.png'
-import { useTotalUserCountQuery } from './redux/Api/dashboardApi'
+import { useGetPendingPremierUserQuery, useTotalUserCountQuery } from './redux/Api/dashboardApi'
 
 
 function App() {
   /** Get total user statistics API */
-  const {data :  getTotalUser} = useTotalUserCountQuery()
+  const { data: getTotalUser } = useTotalUserCountQuery()
+  const { data: getRequestUser } = useGetPendingPremierUserQuery()
+  console.log(getRequestUser?.data?.data);
 
 
 
-  const tableData =[
-    {
-      key: 1,
-      id : 1,
-      name: 'dindiniya',
-      img: user,
-      contact : '08 +123 456',
-      email : 'bockelboy@att.com',
-      location : 'Kent, Utha',
-      car : 'AIM Mychro',
-      carLocation : 'United State',
-      carImg : car1
+  const tableData = getRequestUser?.data?.data?.slice(0,3)?.map((user, i) => {
+    return (
+      {
+        key: i+1,
+        id: i+1,
+        name: user?.name,
+        img: user,
+        contact: user?.phone_number,
+        email: 'bockelboy@att.com',
+        location: 'Kent, Utha',
+        car: 'AIM Mychro',
+        carLocation: 'United State',
+        carImg: car1
 
-    },
-    {
-      key: 2,
-      id : 2,
-      name: 'dindiniya',
-      img: user,
-      contact : '08 +123 456',
-      email : 'bockelboy@att.com',
-      location : 'Kent, Utha',
-      car : 'AIM Mychro',
-      carLocation : 'United State',
-      carImg : car2
+      }
+    )
+  })
 
-    },
-    {
-      key: 3,
-      id : 3,
-      name: 'dindiniya',
-      img: user,
-      contact : '08 +123 456',
-      email : 'bockelboy@att.com',
-      location : 'Kent, Utha',
-      car : 'AIM Mychro',
-      carLocation : 'United State',
-      carImg : car3
+ 
 
-    }
-  ]
-   
-  
 
   const data = [
     {
       title: 'Total User',
-      count:  getTotalUser?.data?.users,
+      count: getTotalUser?.data?.users,
     },
     {
       title: 'Total Premium User',

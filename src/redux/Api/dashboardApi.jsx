@@ -25,6 +25,15 @@ const useApi = baseApi.injectEndpoints({
                 }
             }
         }),
+
+        getPendingPremierUser : builder.query({
+            query : ()=>{
+                return {
+                    url : '/dashboard/padding_premium_request',
+                    method :  "GET"
+                }
+            }
+        }),
        
         /** category api integration */
         getAllCategory: builder.query({
@@ -128,7 +137,7 @@ const useApi = baseApi.injectEndpoints({
         getAboutUs : builder.query({
             query : ()=>{
                 return {
-                    url : '/rules/get-about-us',
+                    url : '/dashboard/get-terms-conditions',
                     method : 'GET'
                 }
             },
@@ -137,7 +146,7 @@ const useApi = baseApi.injectEndpoints({
         updateAboutUs : builder.mutation({
             query : (data)=>{
                 return {
-                    url : '/rules/add-about-us',
+                    url : '/dashboard/add-terms-conditions',
                     method : "POST",
                     body :  data
                 }
@@ -186,4 +195,4 @@ const useApi = baseApi.injectEndpoints({
     })
 })
 
-export const { useTotalUserCountQuery, useGetUserGrowthQuery, useGetIncomeGrowthQuery, useGetAllCategoryQuery, useCreateCategoryMutation, useGetSingleSubscribePlanQuery, useApproveDeclineMemberRequestMutation , useGetAllNotificationQuery , useDeleteNotificationMutation, useGetAllUserQuery , useBlockUserMutation , useUpdateAboutUsMutation , useGetAboutUsQuery , useGetRulesAndRegulationQuery, useUpdateRulesAndRegulationMutation , useUpdateFactsMutation, useGetFactsQuery , useDeleteCategoryMutation , useEditCategoryMutation} = useApi
+export const { useTotalUserCountQuery, useGetUserGrowthQuery, useGetIncomeGrowthQuery,useGetPendingPremierUserQuery, useGetAllCategoryQuery, useCreateCategoryMutation, useGetSingleSubscribePlanQuery, useApproveDeclineMemberRequestMutation , useGetAllNotificationQuery , useDeleteNotificationMutation, useGetAllUserQuery , useBlockUserMutation , useUpdateAboutUsMutation , useGetAboutUsQuery , useGetRulesAndRegulationQuery, useUpdateRulesAndRegulationMutation , useUpdateFactsMutation, useGetFactsQuery , useDeleteCategoryMutation , useEditCategoryMutation} = useApi

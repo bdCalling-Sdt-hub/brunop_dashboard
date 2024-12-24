@@ -16,7 +16,6 @@ const Terms = () => {
         const data = {
             description: content
         }
-        console.log(data);
         updateAbout(data).unwrap()
             .then((payload) => toast.success("Update about successfully!"))
             .catch((error) => toast.error(error?.data?.message));
