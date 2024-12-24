@@ -133,6 +133,8 @@ const useApi = baseApi.injectEndpoints({
             },
             invalidatesTags : ['blockUser']
         }),
+
+        
         /** Setting APIs */
         getAboutUs : builder.query({
             query : ()=>{

@@ -6,8 +6,14 @@ import { IoMdAdd } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import CategoryModal from '../../Components/CategoryModal/CategoryModal'
 import AddPremiumModal from '../../Components/AddPremiumModal/AddPremiumModal'
+import { useGetAllManagerQuery } from '../../redux/Api/manageManagerApi'
 
 const ManagerManage = () => { 
+
+    // ALL API
+    const {data :  getAllManager} = useGetAllManagerQuery()
+    console.log(getAllManager);
+
     const [openAddModal, setOpenAddModal] =  useState(false)
     const data = [
         {

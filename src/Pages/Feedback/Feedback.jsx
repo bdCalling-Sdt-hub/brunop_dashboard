@@ -1,28 +1,54 @@
 import { ArrowLeftOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Button, Table } from 'antd';
-import React from 'react'
+import { Button, Form, Input, Modal, Table } from 'antd';
+import React, { useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { FaReply } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
+import { useGetAllFeedBackQuery, useReplyFeedbackMutation } from '../../redux/Api/manageManagerApi';
+import TextArea from 'antd/es/input/TextArea';
+import { toast } from 'sonner';
 
 const Feedback = () => {
-    const dataSource = [
-        {
-            key: "1",
-            name: "Jullu Jalal",
-            description: "Our Bachelor of Commerce program is ACBSP-accredited.",
-            time: "8:38 AM",
-            status: "Pending",
-        },
-        {
-            key: "2",
-            name: "Jullu Jalal",
-            description: "Our Bachelor of Commerce program is ACBSP-accredited.",
-            time: "8:38 AM",
-            status: "Replied",
-        },
-        // Repeat as necessary
-    ];
+    const [openModal, setOpenModal] = useState(false)
+    const [feedback, setFeedback] = useState({})
+
+    // ======== ALL API=======//
+    const { data: getAllFeedback } = useGetAllFeedBackQuery()
+    const [replyFeedback] = useReplyFeedbackMutation()
+
+
+    const dataSource = getAllFeedback?.data?.map((feedback) => {
+        return (
+            {
+                key: feedback?._id,
+                name: feedback?.name,
+                description: feedback?.message,
+                time: feedback?.updatedAt?.split("T")[1]?.replace("Z", ""),
+                status: feedback?.reply,
+            }
+        )
+    })
+
+
+    // Handle send feedback
+    const onFinish = (value) => {
+        const data = {
+            feedbackId: feedback?.key,
+            replyMessage: value?.replyMessage
+        }
+
+        replyFeedback(data).unwrap()
+            .then((payload) => {
+                toast.success(payload?.message)
+                setOpenModal(false)
+            })
+            .catch((error) => toast.error(error?.data?.message));
+
+
+
+
+    }
+
 
     const columns = [
         {
@@ -44,14 +70,18 @@ const Feedback = () => {
             title: "Status",
             dataIndex: "status",
             key: "status",
-            render: (status) => {
+            render: (_, record) => {
                 let color = "blue";
-                if (status === "Replied") color = "green";
-
+                if (record?.status === true) color = "green";
                 return (
                     <div>
                         <Button
+                            onClick={() => {
+                                setOpenModal(true)
+                                setFeedback(record)
+                            }}
                             type="text"
+                            disabled={record?.status}
                             icon={<FaReply />}
                             style={{
                                 backgroundColor: color === "blue" ? "#E6E5F1" : "#E6F4EA",
@@ -61,7 +91,7 @@ const Feedback = () => {
                                 borderRadius: "4px",
                             }}
                         >
-                            {status}
+                            {record?.status ? "Replied" : "Pending"}
                         </Button>
                         {/* <Button
                             type="text"
@@ -99,9 +129,25 @@ const Feedback = () => {
                 <Table
                     dataSource={dataSource}
                     columns={columns}
-                    pagination={{ pageSize: 10 }}
+                    pagination={false}
                 />
             </div>
+            <Modal centered open={openModal} footer={false} onCancel={() => setOpenModal(false)}>
+                <h1 className='text-xl'>Feedback Reply</h1>
+                <p>Feedback from :  </p>
+                <TextArea value={feedback?.description} />
+
+                <Form layout='vertical' onFinish={onFinish}>
+                    <Form.Item name={'replyMessage'} label='Your Reply'>
+
+                        <TextArea rows={5} />
+                    </Form.Item>
+
+                    <div className='flex items-center justify-center'>
+                        <button className='bg-black text-white px-6  py-2 rounded-md'>Send</button>
+                    </div>
+                </Form>
+            </Modal>
         </div>
     )
 }
