@@ -9,10 +9,12 @@ import user from './assets/images/use4.png'
 import car1 from './assets/images/car.png'
 import car2 from './assets/images/car2.png'
 import car3 from './assets/images/car3.png'
+import { useTotalUserCountQuery } from './redux/Api/dashboardApi'
 
 
 function App() {
   /** Get total user statistics API */
+  const {data :  getTotalUser} = useTotalUserCountQuery()
 
 
 
@@ -63,19 +65,19 @@ function App() {
   const data = [
     {
       title: 'Total User',
-      count: 18.6,
+      count:  getTotalUser?.data?.users,
     },
     {
       title: 'Total Premium User',
-      count: 18.6,
+      count: getTotalUser?.data?.premiumUser,
     },
     {
       title: 'Total Selling Products ',
-      count: 20.9,
+      count: getTotalUser?.data?.order,
     },
     {
       title: 'Total Earning',
-      count: 20.9,
+      count: getTotalUser?.data?.income,
     },
 
   ]
@@ -86,7 +88,7 @@ function App() {
         {
           data?.map((item, index) => <div className='w-full h-full border-r-2 center-center flex-col gap-3  bg-[white]  ' key={index}>
             <div className='my-10 text-center space-y-4'>
-              <p className='text-3xl font-semibold'>{item?.count}K</p>
+              <p className='text-3xl font-semibold'>{item?.count}</p>
               <p className=' '>{item?.title}</p>
             </div>
           </div>)

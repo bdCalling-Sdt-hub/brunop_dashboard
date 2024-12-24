@@ -118,7 +118,7 @@ const Sidebar = () => {
     return (
         <div id='sidebar' className=' w-full h-full '>
             <div className="log mb-5 w-full  bg-white">
-                <Link to={`/`}><img src={logo} alt="Logo" className='w-[80%] mx-auto  h-[78px]' /></Link>
+                <Link to={`/`}><img src={logo} alt="Logo" className='w-[80%] mx-auto  h-[100px]' /></Link>
             </div>
 
             <div className='start-start flex-col gap-4 mt-5 text-black '>

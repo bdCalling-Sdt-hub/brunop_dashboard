@@ -2,60 +2,22 @@
 import { Select } from 'antd';
 import React, { PureComponent, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useGetUserGrowthQuery } from '../../redux/Api/dashboardApi';
 
 const Overview = () => {
     const [year, setYear] = useState('2024')
     /**user growth API */
-    const chartData = [
-        {
-            name: "Jan",
-            uv: 7
-        },
-        {
-            name: "Feb",
-            uv: 6
-        },
-        {
-            name: "Mar",
-            uv: 11
-        },
-        {
-            name: "Apr",
-            uv: 10
-        },
-        {
-            name: "May",
-            uv: 11
-        },
-        {
-            name: "Jun",
-            uv: 5
-        },
-        {
-            name: "July",
-            uv: 5
-        },
-        {
-            name: "Aug",
-            uv: 9
-        },
-        {
-            name: "Sep",
-            uv: 5
-        },
-        {
-            name: "Oct",
-            uv: 8
-        },
-        {
-            name: "Nov",
-            uv: 5
-        },
-        {
-            name: "Dec",
-            uv: 6
-        }
-    ]
+
+    const { data: userGrowth } = useGetUserGrowthQuery(year)
+
+    const chartData = userGrowth?.data?.data?.map((user, i) => {
+        return (
+            {
+                name: user?.month,
+                uv: user?.count
+            }
+        )
+    })
 
 
 
@@ -108,7 +70,7 @@ const Overview = () => {
                         <Tooltip />
                         <Legend />
                         {/* <Bar dataKey="pv" stackId="a" fill="#8884d8" /> */}
-                        <Bar dataKey="uv" stackId="a" fill="#0044B4"  radius={[25, 25, 0, 0]} />
+                        <Bar dataKey="uv" stackId="a" fill="#0044B4" radius={[25, 25, 0, 0]} />
                     </BarChart>
                 </ResponsiveContainer>
             </div>

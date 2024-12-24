@@ -78,7 +78,7 @@ const SubscriptionGrowth = () => {
     return (
         <>
             <div className='between-center'>
-                <p className='text-xl font-medium'>Host Growth</p>
+                <p className='text-xl font-medium'>Transaction Growth</p>
                 <Select
                     defaultValue="2024"
                     style={{ width: 120 }}

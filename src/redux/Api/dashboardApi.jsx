@@ -5,7 +5,7 @@ const useApi = baseApi.injectEndpoints({
         totalUserCount: builder.query({
             query: (data) => {
                 return {
-                    url: '/dashboard/total-user_count',
+                    url: '/dashboard/count',
                     method: 'GET',
                 }
             }
