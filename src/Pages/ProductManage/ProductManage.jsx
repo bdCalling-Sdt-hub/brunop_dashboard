@@ -14,7 +14,7 @@ const ProductManage = () => {
     const { data: getAllProduct } = useGetAllProductQuery({ page, searchTerm });
     const [deleteProduct] = useDeleteProductMutation()
 
-
+    // console.log(getAllProduct?.data?.meta);
     const dataSource = getAllProduct?.data?.result?.map((product, i) => {
         return (
             {
@@ -30,6 +30,7 @@ const ProductManage = () => {
         )
     })
 
+    // Handle delete product function
     const handleDeleteProduct = (id) => {
         deleteProduct(id).unwrap()
             .then((payload) => toast.success(payload?.message))
@@ -155,7 +156,10 @@ const ProductManage = () => {
                 />
                 <div className='flex justify-center pt-5'>
                     <Pagination
-
+                        onChange={(page)=> setPage(page)}
+                        pageSize={getAllProduct?.data?.meta?.limit}
+                        total={getAllProduct?.data?.meta?.total}
+                        
                     />
                 </div>
             </div>
