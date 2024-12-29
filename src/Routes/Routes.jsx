@@ -56,7 +56,7 @@ export const router = createBrowserRouter([
                 element: <Feedback/>,
             },
             {
-                path: '/customer-manager',
+                path: '/customer-manage',
                 element: <CustomerManager/>,
             },
             {

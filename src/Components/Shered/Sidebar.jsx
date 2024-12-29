@@ -44,8 +44,8 @@ const Sidebar = () => {
         },
         
         {
-            path: '/customer-manager',
-            label: 'Customer Manager',
+            path: '/customer-manage',
+            label: 'Customer Manage',
             icon:<RiCustomerServiceLine  size={22}  />,
             sub_menu: false
         },

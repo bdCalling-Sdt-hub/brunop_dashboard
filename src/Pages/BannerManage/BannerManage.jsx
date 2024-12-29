@@ -8,73 +8,80 @@ import CategoryModal from '../../Components/CategoryModal/CategoryModal'
 import { DeleteOutlined } from '@ant-design/icons'
 import img from '../../assets/images/banner1.png'
 import img2 from '../../assets/images/banner2.png'
-const dataSource = [
-    {
-        key: "1",
-        sno: 1,
-        image: img2, // Replace with actual image URL
-        name: "Christmas",
-    },
-    {
-        key: "2",
-        sno: 2,
-        image: img, // Replace with actual image URL
-        name: "Vegetable",
-    },
-];
+import { useGetAllBannerQuery } from '../../redux/Api/bannerApi'
+import { imageUrl } from '../../redux/Api/baseApi'
 
-const columns = [
-    {
-        title: "S.No",
-        dataIndex: "sno",
-        key: "sno",
-        width: "10%",
-    },
-    {
-        title: "Image",
-        dataIndex: "image",
-        key: "image",
-        width: "30%",
-        render: (image) => (
-            <img
-                src={image}
-                alt="Banner"
-                style={{
-                    width: "100px",
-                    height: "50px",
-                    objectFit: "cover",
-                    borderRadius: "4px",
-                }}
-            />
-        ),
-    },
-    {
-        title: "Name",
-        dataIndex: "name",
-        key: "name",
-        width: "40%",
-        render: (name) => <span style={{ color: "#666" }}>{name}</span>,
-    },
-    {
-        title: "Action",
-        key: "action",
-        width: "20%",
-        render: () => (
-            <Button
-                type="text"
-                icon={<DeleteOutlined />}
-                style={{
-                    color: "red",
-                    fontSize: "16px",
-                }}
-                onClick={() => alert("Delete action triggered!")}
-            />
-        ),
-    },
-];
+
+
 
 const BannerManage = () => {
     const [openAddModal, setOpenAddModal] = useState(false)
+
+    const {data : getAllBanner} = useGetAllBannerQuery();
+
+    const dataSource = getAllBanner?.data?.map((banner , i)=>{
+        console.log(banner);
+        return (
+            {
+                key: banner?._id,
+                sno: i +1,
+                image: `${imageUrl}${banner?.adds_image}`, 
+                name: banner?.name,
+            }
+        )
+    })
+
+
+
+    const columns = [
+        {
+            title: "S.No",
+            dataIndex: "sno",
+            key: "sno",
+            width: "10%",
+        },
+        {
+            title: "Image",
+            dataIndex: "image",
+            key: "image",
+            width: "30%",
+            render: (image) => (
+                <img
+                    src={image}
+                    alt="Banner"
+                    style={{
+                        width: "100px",
+                        height: "50px",
+                        objectFit: "cover",
+                        borderRadius: "4px",
+                    }}
+                />
+            ),
+        },
+        {
+            title: "Name",
+            dataIndex: "name",
+            key: "name",
+            width: "40%",
+            render: (name) => <span style={{ color: "#666" }}>{name}</span>,
+        },
+        {
+            title: "Action",
+            key: "action",
+            width: "20%",
+            render: () => (
+                <Button
+                    type="text"
+                    icon={<DeleteOutlined />}
+                    style={{
+                        color: "red",
+                        fontSize: "16px",
+                    }}
+                    onClick={() => alert("Delete action triggered!")}
+                />
+            ),
+        },
+    ];
     return (
         <div className='bg-white p-4 rounded-md'>
             <div className="flex justify-between items-center  w-full pb-8" >

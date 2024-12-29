@@ -92,6 +92,12 @@ const CustomerManager = () => {
 
     const [selectedValue, setSelectedValue] = useState(null); 
 
+
+    // Handle sent request function
+    const handleSendRequest = ()=>{
+        setOpenModal(true)
+    }
+
     const handleChange = (value) => {
         setSelectedValue(value); 
     };
@@ -122,6 +128,23 @@ const CustomerManager = () => {
             title: "Location",
             dataIndex: "location",
             key: "location",
+        },
+        {
+            title: "Phone Number",
+            dataIndex: "phone",
+            key: "phone",
+        },
+        {
+            title: "Sent Request",
+            dataIndex: "sentRequest",
+            key: "sentRequest",
+            render : (_,record)=>{
+                return(
+                    <>
+                    <button className='bg-black text-white px-2 py-1 rounded-md' onClick={()=>handleSendRequest()}>Send request</button>
+                    </>
+                )
+            }
         },
         {
             title: "Status",
@@ -161,6 +184,7 @@ const CustomerManager = () => {
                 </div>
                 <Input className='max-w-[250px] h-10' prefix={<CiSearch className='text-2xl' />} placeholder="Search here..." />
             </div>
+
             <div style={{ padding: "20px" }}>
                 <Table
                     dataSource={data}
@@ -168,6 +192,8 @@ const CustomerManager = () => {
                     pagination={{ pageSize: 10 }}
                 />
             </div>
+
+            
         </div>
     )
 }
