@@ -1,65 +1,33 @@
-import { Button, Input, Table } from 'antd'
-import React from 'react'
+import { Button, Input, Pagination, Table } from 'antd'
+import React, { useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { CiEdit, CiSearch } from 'react-icons/ci'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
-import img from '../../assets/images/prod1.jpg'
-import img2 from '../../assets/images/prod2.jpg'
 import { FaPlus } from 'react-icons/fa'
+import { useGetAllProductQuery } from '../../redux/Api/productManageApi'
+import { imageUrl } from '../../redux/Api/baseApi'
 const ProductManage = () => {
-    const dataSource = [
-        {
-            key: "1",
-            id: "#12333",
-            name: "Central Shaft",
-            weight: "500-600gm",
-            price: 15,
-            store: 500,
-            status: "Available",
-            image: img2, // Replace with real image URLs
-        },
-        {
-            key: "2",
-            id: "#12334",
-            name: "Door Panels",
-            weight: "500-600gm",
-            price: 15,
-            store: 50,
-            status: "Unavailable",
-            image: img,
-        },
-        {
-            key: "3",
-            id: "#12335",
-            name: "Canopy",
-            weight: "500-600gm",
-            price: 15,
-            store: 300,
-            status: "Available",
-            image: img2,
-        },
-        {
-            key: "4",
-            id: "#12336",
-            name: "Bearings",
-            weight: "500-600gm",
-            price: 15,
-            store: 2,
-            status: "Short Stock",
-            image: img,
-        },
-        {
-            key: "5",
-            id: "#12337",
-            name: "Brush Strips",
-            weight: "500-600gm",
-            price: 15,
-            store: 500,
-            status: "Available",
-            image: img2,
-        },
-    ];
+    const [page , setPage] = useState(1)
+    const [searchTerm ,  setSearchTerms] =  useState('')
+    const {data : getAllProduct } = useGetAllProductQuery({page , searchTerm})
+
+
+    const dataSource = getAllProduct?.data?.result?.map((product, i)=>{
+        return (
+            {
+                key: product?._id,
+                id: i + 1,
+                name: product?.name,
+                weight: product?.weight,
+                price: product?.price,
+                store: product?.store,
+                status: product?.status,
+                image: `${imageUrl}${product?.product_image?.[0]}`,
+            }  
+        )
+    })
+  
 
     const columns = [
         {
@@ -157,7 +125,7 @@ const ProductManage = () => {
                 </div>
                 <Link to={'/product-manage/:id'} className='flex items-center gap-1 bg-black text-white px-4 py-2 rounded-md'>Add Products <FaPlus /></Link>
             </div>
-                <Input className='max-w-[250px] h-10' prefix={<CiSearch className='text-2xl' />} placeholder="Search here..." />
+                <Input onChange={(e)=> setSearchTerms(e.target.value)} className='max-w-[250px] h-10' prefix={<CiSearch className='text-2xl' />} placeholder="Search here..." />
             <div className="table-container" style={{ padding: "20px" }}>
                 <div className="flex  gap-5  items-center mb-4">
                     <div className='border-r-2 pr-2'>
@@ -170,8 +138,13 @@ const ProductManage = () => {
                 <Table
                     dataSource={dataSource}
                     columns={columns}
-                    pagination={{ pageSize: 10 }}
+                    pagination={false}
                 />
+                <div className='flex justify-center pt-5'>
+                    <Pagination
+                    
+                    />
+                </div>
             </div>
         </div>
     )

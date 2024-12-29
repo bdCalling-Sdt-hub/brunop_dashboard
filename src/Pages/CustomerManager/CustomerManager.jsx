@@ -1,10 +1,11 @@
-import { Avatar,Input, Select, Table } from 'antd'
+import { Avatar, Input, Radio, Select, Table } from 'antd'
 import React, { useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { CiSearch } from 'react-icons/ci'
 import { Link } from 'react-router-dom'
 
 const CustomerManager = () => {
+    const [isPremium, setIsPremium] = useState(true)
     const data = [
         {
             key: "1",
@@ -90,16 +91,16 @@ const CustomerManager = () => {
 
 
 
-    const [selectedValue, setSelectedValue] = useState(null); 
+    const [selectedValue, setSelectedValue] = useState(null);
 
 
     // Handle sent request function
-    const handleSendRequest = ()=>{
+    const handleSendRequest = () => {
         setOpenModal(true)
     }
 
     const handleChange = (value) => {
-        setSelectedValue(value); 
+        setSelectedValue(value);
     };
 
     const columns = [
@@ -138,10 +139,10 @@ const CustomerManager = () => {
             title: "Sent Request",
             dataIndex: "sentRequest",
             key: "sentRequest",
-            render : (_,record)=>{
-                return(
+            render: (_, record) => {
+                return (
                     <>
-                    <button className='bg-black text-white px-2 py-1 rounded-md' onClick={()=>handleSendRequest()}>Send request</button>
+                        <button className='bg-black text-white px-2 py-1 rounded-md' onClick={() => handleSendRequest()}>Send request</button>
                     </>
                 )
             }
@@ -154,8 +155,8 @@ const CustomerManager = () => {
                 return (
                     <div className='flex '>
                         <div className={`text-center py-1 w-[50%] rounded-sm ${record?.status === 'Deactivate'
-                                ? 'bg-[#FEE2E2] text-[#EF4444]' 
-                                : 'bg-[#EBF7E4] text-[#7CC84E]'
+                            ? 'bg-[#FEE2E2] text-[#EF4444]'
+                            : 'bg-[#EBF7E4] text-[#7CC84E]'
                             }`}>{record?.status}</div>
                         <Select
                             onChange={handleChange}
@@ -174,18 +175,35 @@ const CustomerManager = () => {
 
         },
     ];
+
+   
+    const handlePremiumUser = (e) => {
+        setIsPremium(e.target.value === "premium"); 
+    };
     return (
         <div className='bg-white p-4 rounded-md'>
             <div className="flex justify-between items-center  w-full pb-8" >
                 <div className="flex items-center gap-2">
                     <Link to={-1}><BsArrowLeftShort size={25} /></Link>
-                    Customer Management
+                    Premium User Management
 
                 </div>
                 <Input className='max-w-[250px] h-10' prefix={<CiSearch className='text-2xl' />} placeholder="Search here..." />
             </div>
+            <div className='px-5'>
+                <div className='px-5'>
+                    <Radio.Group
+                        onChange={handlePremiumUser}
+                        value={isPremium ? "premium" : "user"} 
+                    >
+                        <Radio value="premium">Premium User</Radio>
+                        <Radio value="user">User</Radio>
+                    </Radio.Group>
+                </div>
+            </div>
 
             <div style={{ padding: "20px" }}>
+
                 <Table
                     dataSource={data}
                     columns={columns}
@@ -193,7 +211,7 @@ const CustomerManager = () => {
                 />
             </div>
 
-            
+
         </div>
     )
 }

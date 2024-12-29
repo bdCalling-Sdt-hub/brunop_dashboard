@@ -92,7 +92,6 @@ const BannerManage = () => {
 
     // Handle delete banner function
     const handleDeleteBanner = (id) => {
-        console.log(id);
         deleteBanner(id).unwrap()
             .then((payload) => toast.success(payload?.message))
             .catch((error) => toast.error(error?.data?.message));
