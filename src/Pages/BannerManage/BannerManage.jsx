@@ -1,4 +1,4 @@
-import { Button, Input, Table } from 'antd'
+import { Button, Input, Popconfirm, Table } from 'antd'
 import React, { useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { CiSearch } from 'react-icons/ci'
@@ -6,10 +6,9 @@ import { IoMdAdd } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import CategoryModal from '../../Components/CategoryModal/CategoryModal'
 import { DeleteOutlined } from '@ant-design/icons'
-import img from '../../assets/images/banner1.png'
-import img2 from '../../assets/images/banner2.png'
-import { useGetAllBannerQuery } from '../../redux/Api/bannerApi'
+import { useDeleteBannerMutation, useGetAllBannerQuery } from '../../redux/Api/bannerApi'
 import { imageUrl } from '../../redux/Api/baseApi'
+import { toast } from 'sonner'
 
 
 
@@ -17,15 +16,15 @@ import { imageUrl } from '../../redux/Api/baseApi'
 const BannerManage = () => {
     const [openAddModal, setOpenAddModal] = useState(false)
 
-    const {data : getAllBanner} = useGetAllBannerQuery();
+    const { data: getAllBanner } = useGetAllBannerQuery();
+    const [deleteBanner] = useDeleteBannerMutation()
 
-    const dataSource = getAllBanner?.data?.map((banner , i)=>{
-        console.log(banner);
+    const dataSource = getAllBanner?.data?.map((banner, i) => {
         return (
             {
                 key: banner?._id,
-                sno: i +1,
-                image: `${imageUrl}${banner?.adds_image}`, 
+                sno: i + 1,
+                image: `${imageUrl}${banner?.adds_image}`,
                 name: banner?.name,
             }
         )
@@ -69,19 +68,35 @@ const BannerManage = () => {
             title: "Action",
             key: "action",
             width: "20%",
-            render: () => (
-                <Button
-                    type="text"
-                    icon={<DeleteOutlined />}
-                    style={{
-                        color: "red",
-                        fontSize: "16px",
-                    }}
-                    onClick={() => alert("Delete action triggered!")}
-                />
+            render: (_, record) => (
+                <Popconfirm
+                    title="Delete"
+                    description="Are you sure delete this banner!"
+                    okText="Yes"
+                    onConfirm={() => handleDeleteBanner(record?.key)}
+                    // onCancel={()=>}
+                    cancelText="No"
+                >
+                    <Button
+                        type="text"
+                        icon={<DeleteOutlined />}
+                        style={{
+                            color: "red",
+                            fontSize: "16px",
+                        }}
+                    />
+                </Popconfirm>
             ),
         },
     ];
+
+    // Handle delete banner function
+    const handleDeleteBanner = (id) => {
+        console.log(id);
+        deleteBanner(id).unwrap()
+            .then((payload) => toast.success(payload?.message))
+            .catch((error) => toast.error(error?.data?.message));
+    }
     return (
         <div className='bg-white p-4 rounded-md'>
             <div className="flex justify-between items-center  w-full pb-8" >
@@ -97,7 +112,7 @@ const BannerManage = () => {
             <Table
                 dataSource={dataSource}
                 columns={columns}
-                pagination={false} // Disable pagination
+                pagination={false}
                 bordered={false}
             />
             <CategoryModal setOpenAddModal={setOpenAddModal} openAddModal={openAddModal} />
