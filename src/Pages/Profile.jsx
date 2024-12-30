@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import { LoadingOutlined } from "@ant-design/icons";
 import { imageUrl } from "../redux/Api/baseApi";
 import { useNavigate } from "react-router-dom";
-import img from "../assets/images/use4.png"
 
 
 const Profile = () => {
@@ -14,7 +13,6 @@ const Profile = () => {
     const { data: getProfile } = useGetProfileQuery()
     const [updateProfile, { isLoading }] = useUpdateProfileMutation()
     const [changePassword, { isLoading: changePasswordLoading }] = useChangePasswordMutation()
-        console.log(getProfile);
     const navigate = useNavigate()
 
     const [image, setImage] = useState();
@@ -84,8 +82,7 @@ const Profile = () => {
                         <input type="file" onInput={handleChange} id='img' style={{ display: "none" }} />
                         <img
                             style={{ width: 140, height: 140, borderRadius: "100%" }}
-                            // src={`${image ? URL.createObjectURL(image) : `${imageUrl}${getProfile?.data?.profile_image}`}`}
-                            src={img}
+                            src={`${image ? URL.createObjectURL(image) : `${imageUrl}${getProfile?.data?.profile_image}`}`}
                             alt=""
                             className="shadow-2xl"
                         />
