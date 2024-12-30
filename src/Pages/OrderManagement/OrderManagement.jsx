@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BsArrowLeftShort } from 'react-icons/bs';
 import { CiSearch } from 'react-icons/ci';
 import { useGetAllOrderQuery, useUpdateOrderStatusMutation } from '../../redux/Api/OrderManageApi';
+import { toast } from 'sonner';
 const { Option } = Select;
 const OrderManagement = () => {
     const [page, setPage] = useState(1)
@@ -17,6 +18,7 @@ const OrderManagement = () => {
 
 
     const dataSource = getAllOrder?.data?.result?.map((order, i) => {
+        // console.log(order);
         return (
             {
                 key: i + 1,
@@ -25,7 +27,7 @@ const OrderManagement = () => {
                 type: order?.user?.customerType,
                 items: order?.items?.map(item => item?.quantity),
                 price: order?.total_amount,
-                date: "05/12/2024",
+                date: order?.updatedAt?.split('T')[0],
                 status: order?.status,
             }
         )
@@ -33,9 +35,12 @@ const OrderManagement = () => {
 
 
     const handleChangeOrderStatus = (orderId, status) => {
-        updateStatus({ status, orderId }).unwrap()
-            .then((payload) => console.log('fulfilled', payload))
-            .catch((error) => console.error('rejected', error));
+        const data = {
+            orderId, status
+        }
+        updateStatus(data).unwrap()
+            .then((payload) => toast.success(payload?.message))
+            .catch((error) => toast.error(error?.data?.message));
     }
 
     const columns = [
@@ -66,7 +71,7 @@ const OrderManagement = () => {
             render: (price) => `$ ${price}`,
         },
         {
-            title: "Delivery Time",
+            title: "Order Date",
             dataIndex: "date",
             key: "date",
         },
@@ -81,17 +86,19 @@ const OrderManagement = () => {
                 // if (status === "Processing") color = "#E6E5F1";
                 // if (status === "Packing") color = "#CCC9E2";
                 return (
-                    <Select
-                        value={record?.status}
-                        onChange={(newStatus) => handleChangeOrderStatus(record?.id, newStatus)}
-                        className={`rounded-md py-1 px-1 `}
-                    >
-                        <Option value="Pending">Pending</Option>
-                        <Option value="Processing">Processing</Option>
-                        <Option value="Shipping">Shipping</Option>
-                        <Option value="Delivered">Delivered</Option>
-                        <Option value="Cancelled">Cancelled</Option>
-                    </Select>
+                    <div className=''>
+                        <Select
+                            value={record?.status}
+                            onChange={(newStatus) => handleChangeOrderStatus(record?.id, newStatus)}
+                            className={`rounded-md py-1 px-1 `}
+                        >
+                            <Option value="Pending">Pending</Option>
+                            <Option value="Processing">Processing</Option>
+                            <Option value="Shipping">Shipping</Option>
+                            <Option value="Delivered">Delivered</Option>
+                            <Option value="Cancelled">Cancelled</Option>
+                        </Select>
+                    </div>
                 )
 
             },
