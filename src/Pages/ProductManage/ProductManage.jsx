@@ -137,16 +137,16 @@ const ProductManage = () => {
                     Product Management
 
                 </div>
-                <Link to={'/product-manage/:id'} className='flex items-center gap-1 bg-black text-white px-4 py-2 rounded-md'>Add Products <FaPlus /></Link>
+                <Link to={'/product-manage/add-product'} className='flex items-center gap-1 bg-black text-white px-4 py-2 rounded-md'>Add Products <FaPlus /></Link>
             </div>
             <Input onChange={(e) => setSearchTerms(e.target.value)} className='max-w-[250px] h-10' prefix={<CiSearch className='text-2xl' />} placeholder="Search here..." />
             <div className="table-container" style={{ padding: "20px" }}>
                 <div className="flex  gap-5  items-center mb-4">
                     <div className='border-r-2 pr-2'>
-                        <strong>Total Products:</strong> All (160)
+                        <strong>Total Products:</strong> All  ({getAllProduct?.data?.result?.length})
                     </div>
                     <div>
-                        <strong>Publish:</strong> (16)
+                        {/* <strong>Publish:</strong> (16) */}
                     </div>
                 </div>
                 <Table

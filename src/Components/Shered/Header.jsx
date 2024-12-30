@@ -1,12 +1,12 @@
 import { Badge } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { IoIosNotificationsOutline } from "react-icons/io";
-// import { useGetProfileQuery } from '../../redux/Api/userApi';
-// import { imageUrl } from '../../redux/Api/baseApi';
-import profile from '../../assets/images/profile.png'
+import { imageUrl } from '../../redux/Api/baseApi';
+import { useGetProfileQuery } from '../../redux/Api/userApi';
+import { FaRegUser } from 'react-icons/fa6';
 
 const Header = () => {
-    // const { data: getUserInfo,isError, isLoading } = useGetProfileQuery();
+    const { data: getUserInfo,isError, isLoading } = useGetProfileQuery();
     const navigate = useNavigate()
     return (
         <div className='w-full py-4 bg-white end-center  gap-4'>
@@ -18,10 +18,11 @@ const Header = () => {
                 </Link>
             </div>
             <Link to={'/profile'} className='end-center gap-1 border-gray-400 p-[2px] px-4 rounded-md cursor-pointer'>
-                {/* <img className='h-10 w-10 rounded-full object-cover shadow-md border-2' src={`${imageUrl}${getUserInfo?.data?.profile_image}`} alt="" /> */}
-                <img className='h-10 w-10 rounded-full object-cover shadow-md' src={profile} alt="" />
-                <p className='font-medium '>Admin Camille</p>
-                {/* <p className='font-medium text-white'>{getUserInfo?.data?.name || "Not available"}</p> */}
+            {
+                 getUserInfo?.data?.profile_image ?  <img className='h-10 w-10 rounded-full object-cover shadow-md border-2' src={ `${imageUrl}${getUserInfo?.data?.profile_image}`} alt="" /> : <FaRegUser size={20} />
+            }
+               
+                <p className='font-medium '>{getUserInfo?.data?.name || "Not available"}</p>
             </Link>
         </div>
     )

@@ -14,7 +14,7 @@ const Profile = () => {
     const { data: getProfile } = useGetProfileQuery()
     const [updateProfile, { isLoading }] = useUpdateProfileMutation()
     const [changePassword, { isLoading: changePasswordLoading }] = useChangePasswordMutation()
-    
+        console.log(getProfile);
     const navigate = useNavigate()
 
     const [image, setImage] = useState();

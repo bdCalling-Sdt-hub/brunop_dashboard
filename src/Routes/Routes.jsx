@@ -27,6 +27,7 @@ import CustomerManager from "../Pages/CustomerManager/CustomerManager.jsx";
 import ManagerManage from "../Pages/ManagerManage/ManagerManage.jsx";
 import BannerManage from "../Pages/BannerManage/BannerManage.jsx";
 import PremiumUser from "../Pages/PremiumUser/PremiumUser.jsx";
+import AddProduct from "../Pages/AddProduct/AddProduct.jsx";
 
 
 export const router = createBrowserRouter([
@@ -51,6 +52,11 @@ export const router = createBrowserRouter([
                 path: '/product-manage/:id',
                 element: <EditProduct/>,
             },
+            {
+                path: '/product-manage/add-product',
+                element: <AddProduct/>,
+            },
+
             {
                 path: '/feedback',
                 element: <Feedback/>,

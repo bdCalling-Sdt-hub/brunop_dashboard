@@ -1,93 +1,35 @@
-import { Avatar, Input, Radio, Select, Table } from 'antd'
+import { Avatar, Input, Pagination, Radio, Select, Table } from 'antd'
 import React, { useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { CiSearch } from 'react-icons/ci'
 import { Link } from 'react-router-dom'
+import { useBlockUnblockCustomerMutation, useGetAllCustomerQuery } from '../../redux/Api/customerManageApi'
+import { imageUrl } from '../../redux/Api/baseApi'
 
 const CustomerManager = () => {
     const [isPremium, setIsPremium] = useState(true)
-    const data = [
-        {
-            key: "1",
-            name: "Giring Furqan",
-            email: "jennings@example.com",
-            location: "3890 Poplar Dr.",
-            status: "Activate",
-            image: "https://via.placeholder.com/40",
-        },
-        {
-            key: "2",
-            name: "John-W-BOSTON",
-            email: "mitc@example.com",
-            location: "3605 Parker Rd.",
-            status: "Activate",
-            image: "https://via.placeholder.com/40",
-        },
-        {
-            key: "3",
-            name: "Yanto Jericho",
-            email: "immons@example.com",
-            location: "8558 Green Rd.",
-            status: "Activate",
-            image: "https://via.placeholder.com/40",
-        },
-        {
-            key: "4",
-            name: "Lukman Farhan",
-            email: "hill@example.com",
-            location: "775 Rolling Green Rd.",
-            status: "Activate",
-            image: "https://via.placeholder.com/40",
-        },
-        {
-            key: "5",
-            name: "Dimas Kamal",
-            email: "lawson@example.com",
-            location: "775 Rolling Green Rd.",
-            status: "Activate",
-            image: "https://via.placeholder.com/40",
-        },
-        {
-            key: "6",
-            name: "Hari Danang",
-            email: "baker@example.com",
-            location: "8080 Railroad St.",
-            status: "Activate",
-            image: "https://via.placeholder.com/40",
-        },
-        {
-            key: "7",
-            name: "Alan Marcus",
-            email: "hanson@example.com",
-            location: "8558 Green Rd.",
-            status: "Activate",
-            image: "https://via.placeholder.com/40",
-        },
-        {
-            key: "8",
-            name: "Yanto Jericho",
-            email: "curtis@example.com",
-            location: "775 Rolling Green Rd.",
-            status: "Activate",
-            image: "https://via.placeholder.com/40",
-        },
-        {
-            key: "9",
-            name: "Giring Furqan",
-            email: "reid@example.com",
-            location: "7529 E. Pecan St.",
-            status: "Activates",
-            image: "https://via.placeholder.com/40",
-        },
-        {
-            key: "10",
-            name: "Giring Furqan",
-            email: "info@gmail.com",
-            location: "775 Rolling Green Rd.",
-            status: "Deactivate",
-            image: "https://via.placeholder.com/40",
-        },
-    ];
+    const [page, setPage] = useState(1)
+    const [searchTerm , setSearchTerm] = useState('')
+    const {data : getAllCustomer} = useGetAllCustomerQuery({isPremium , searchTerm})
+    const [blockUnblockUser] = useBlockUnblockCustomerMutation()
+    console.log(getAllCustomer?.data?.result);
+
+    // formatted customer manage data table
+    const data = getAllCustomer?.data?.result?.map((customer, i)=>{
+        // console.log(customer);
+        return (
+            {
+                id : customer?._id,
+                key: i + 1,
+                name: customer?.name,
+                email: customer?.email,
+                location: customer?.country ? customer?.country : "-",
+                phone : customer?.phone_number ? customer?.phone_number : "-",
+                status: customer?.status,
+                image: `${imageUrl}${customer?.profile_image}` 
+            }
+        )
+    })
 
 
 
@@ -188,7 +130,7 @@ const CustomerManager = () => {
                     Premium User Management
 
                 </div>
-                <Input className='max-w-[250px] h-10' prefix={<CiSearch className='text-2xl' />} placeholder="Search here..." />
+                <Input onChange={(e)=> setSearchTerm(e.target.value)} className='max-w-[250px] h-10' prefix={<CiSearch className='text-2xl' />} placeholder="Search here..." />
             </div>
             <div className='px-5'>
                 <div className='px-5'>
@@ -207,8 +149,15 @@ const CustomerManager = () => {
                 <Table
                     dataSource={data}
                     columns={columns}
-                    pagination={{ pageSize: 10 }}
+                    pagination={false}
                 />
+                <div className='flex justify-center mt-5'>
+                    <Pagination
+                    onChange={(page)=> setPage(page)}
+                    pageSize={getAllCustomer?.data?.meta?.limit}
+                    total={getAllCustomer?.data?.meta?.total}
+                    />
+                </div>
             </div>
 
 

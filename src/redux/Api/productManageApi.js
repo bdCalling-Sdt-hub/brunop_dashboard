@@ -1,25 +1,35 @@
 import { baseApi } from "./baseApi";
 
 const productManageApi = baseApi.injectEndpoints({
-    endpoints  :(builder)=>({
-        getAllProduct : builder.query({
-            query : ({page , searchTerm})=>{
+    endpoints: (builder) => ({
+        getAllProduct: builder.query({
+            query: ({ page, searchTerm }) => {
                 return {
-                    url : `/products/get-all?page=${page}&searchTerm=${searchTerm}`,
-                    method : "GET"
+                    url: `/products/get-all?page=${page}&searchTerm=${searchTerm}`,
+                    method: "GET"
                 }
             },
-            providesTags : ['AllProduct']
+            providesTags: ['AllProduct']
         }),
-        deleteProduct  : builder.mutation({
-                query : (id)=>{
-                    return {
-                        url : `/products/delete/${id}`,
-                        method : 'DELETE'
-                    }
-                },
-                invalidatesTags : ['AllProduct']
-            })
+        deleteProduct: builder.mutation({
+            query: (id) => {
+                return {
+                    url: `/products/delete/${id}`,
+                    method: 'DELETE'
+                }
+            },
+            invalidatesTags: ['AllProduct']
+        }),
+        addNewProduct : builder.mutation({
+            query : (formData)=>{
+                return {
+                    url : '/products/create',
+                    method : 'POST',
+                    body :  formData
+                }
+            },
+            invalidatesTags: ['AllProduct']
+        })
     })
 })
-export const { useGetAllProductQuery , useDeleteProductMutation } = productManageApi
+export const { useGetAllProductQuery, useDeleteProductMutation , useAddNewProductMutation } = productManageApi
