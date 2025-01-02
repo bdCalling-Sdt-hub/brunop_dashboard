@@ -61,12 +61,12 @@ const Sidebar = () => {
             icon:<LiaIdCard  size={22}  />,
             sub_menu: false
         },
-        {
-            path: '/premium-user',
-            label: 'Premium User',
-            icon:<LiaIdCard  size={22}  />,
-            sub_menu: false
-        },
+        // {
+        //     path: '/premium-user',
+        //     label: 'Premium User',
+        //     icon:<LiaIdCard  size={22}  />,
+        //     sub_menu: false
+        // },
        
 
         {
