@@ -7,6 +7,7 @@ import { RiCustomerServiceLine, RiDashboard3Line, RiProductHuntLine, RiUser2Line
 import { IoSettingsOutline } from 'react-icons/io5';
 import { MdFormatListNumbered, MdOutlineFeedback } from 'react-icons/md';
 import { LiaIdCard } from 'react-icons/lia';
+import { AiOutlineTransaction } from 'react-icons/ai';
 
 const Sidebar = () => {
     const [openIndex, setOpenIndex] = useState(null);
@@ -61,12 +62,12 @@ const Sidebar = () => {
             icon:<LiaIdCard  size={22}  />,
             sub_menu: false
         },
-        // {
-        //     path: '/premium-user',
-        //     label: 'Premium User',
-        //     icon:<LiaIdCard  size={22}  />,
-        //     sub_menu: false
-        // },
+        {
+            path: '/transaction',
+            label: 'Transaction',
+            icon:<AiOutlineTransaction   size={22}  />,
+            sub_menu: false
+        },
        
 
         {
