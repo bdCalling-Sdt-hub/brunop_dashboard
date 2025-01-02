@@ -37,7 +37,18 @@ const productManageApi = baseApi.injectEndpoints({
                     method : "GET"
                 }
             }
+        }),
+        updateProducts :  builder.mutation({
+            query : ({id, data})=>{
+                return {
+                    url : `/products/update/${id}`,
+                    method : 'PATCH',
+                    body : data
+                }
+            },
+            invalidatesTags: ['AllProduct']
+
         })
     })
 })
-export const { useGetAllProductQuery, useDeleteProductMutation , useAddNewProductMutation , useGetSingleProductQuery } = productManageApi
+export const { useGetAllProductQuery, useDeleteProductMutation , useAddNewProductMutation , useGetSingleProductQuery , useUpdateProductsMutation } = productManageApi

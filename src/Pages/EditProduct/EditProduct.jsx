@@ -1,51 +1,89 @@
 import React, { useRef, useState } from "react";
-import { Input, Button, Upload, Form } from "antd";
+import { Input, Button, Upload, Form, InputNumber } from "antd";
 import { IoMdArrowBack } from "react-icons/io";
 import { CiImageOn } from "react-icons/ci";
 import JoditEditor from "jodit-react";
 import { useEffect } from 'react';
-import { Link, useParams } from "react-router-dom";
-import { useGetSingleProductQuery } from "../../redux/Api/productManageApi";
-import {  imageUrl } from "../../redux/Api/baseApi";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useGetSingleProductQuery, useUpdateProductsMutation } from "../../redux/Api/productManageApi";
+import { imageUrl } from "../../redux/Api/baseApi";
+import { toast } from "sonner";
 
 const EditProduct = () => {
+    const navigate = useNavigate()
     const [form] = Form.useForm()
     const { id } = useParams()
     const { data: ProductDetails } = useGetSingleProductQuery(id)
+    const [updateProduct] = useUpdateProductsMutation()
     const [description, setDescription] = useState("");
     const [content, setContent] = useState('');
     const [fileList, setFileList] = useState([]);
     const editor = useRef(null);
     const handleDescriptionChange = (value) => {
         setDescription(value);
+
     };
     const handleUploadChange = ({ fileList: newFileList }) => {
         setFileList(newFileList);
     };
 
 
+
+
     const handleFinish = (values) => {
-        console.log("Form Submitted: ", values, description);
+        const formData = new FormData()
+        formData.append('name', values?.productName)
+        formData.append('price', values?.regularPrice)
+        formData.append('store', values.store)
+        formData.append('description', content)
+        formData.append('width', values?.width)
+        formData.append('length', values?.length)
+        formData.append('height', values?.height)
+        formData.append('weight', values?.weight)
+        // console.log(values);
+
+
+        if (fileList?.length > 0) {
+            const image = fileList[0]
+            if (image?.originFileObj) {
+                formData.append('product_image', image?.originFileObj)
+            }
+        }
+
+        updateProduct({ id, data: formData }).unwrap()
+            .then((payload) => {
+                toast.success(payload?.message)
+                navigate('/product-manage')
+            })
+            .catch((error) => toast.error(error?.data?.message));
+
+
+
     };
-    console.log(ProductDetails?.data);
+    // console.log(ProductDetails?.data);
 
     useEffect(() => {
 
         if (ProductDetails?.data) {
 
             setFileList(
-                ProductDetails?.data?.product_image?.map((url , i)=>({
-                    uid : i,
-                    name : `image-${i}`,
-                    status : 'done',
-                    url : `${imageUrl}${url}`
+                ProductDetails?.data?.product_image?.map((url, i) => ({
+                    uid: i,
+                    name: `image-${i}`,
+                    status: 'done',
+                    url: `${imageUrl}${url}`
                 }))
             )
             setContent(ProductDetails?.data?.description)
             form.setFieldsValue({
                 productName: ProductDetails?.data?.name,
                 regularPrice: ProductDetails?.data?.price,
-                store: ProductDetails?.data?.store
+                store: ProductDetails?.data?.store,
+                width : ProductDetails?.data?.width,
+                length :  ProductDetails?.data?.length,
+                height :  ProductDetails?.data?.height,
+                weight : ProductDetails?.data?.weight
+
             })
         }
 
@@ -66,7 +104,6 @@ const EditProduct = () => {
             'align'
         ]
     }
-  console.log(fileList);
 
     return (
         <div className=" p-6 space-y-8">
@@ -129,6 +166,56 @@ const EditProduct = () => {
                         </div>
                     </div>
 
+                </div>
+
+                <div className="grid grid-cols-4 gap-4 mt-5">
+
+                    <Form.Item
+                        name="width"
+                        label="Width"
+                        rules={[{
+                            type: 'number',
+                            message: "Width must be a positive number",
+                            min: 0
+                        }]}
+                    >
+                        <InputNumber className="w-full" placeholder="width" />
+                    </Form.Item>
+                    <Form.Item
+                        name="length"
+                        label="Length"
+                        rules={[{
+                            type: 'number',
+                            message: "Length must be a positive number",
+                            min: 0
+                        }]}
+                    >
+                        <InputNumber className="w-full" placeholder="length" />
+                    </Form.Item>
+                    <Form.Item
+                        name="height"
+                        label="Height"
+                        rules={[{
+                            type: 'number',
+                            message: "Height must be a positive number",
+                            min: 0
+                        }]}
+                    >
+                        <InputNumber className="w-full" placeholder="Height" />
+                    </Form.Item>
+                    <Form.Item
+                        name="weight"
+                        label="Weight"
+                        rules={[{ required: true, message: "Please enter the store value" },
+                        {
+                            type: 'number',
+                            message: "Weight must be a positive number",
+                            min: 0
+                        }
+                        ]}
+                    >
+                        <InputNumber className="w-full" placeholder="Weight" />
+                    </Form.Item>
                 </div>
 
                 <Form.Item label="Description">
