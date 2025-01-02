@@ -11,10 +11,10 @@ const Login = () => {
     const navigate = useNavigate();
 
     const onFinish = (values) => {
-        console.log(values);
+        // console.log(values);
         loginAdmin(values).unwrap()
             .then((payload) => {
-                console.log(payload);
+                // console.log(payload);
                 if(payload?.data?.role === 'ADMIN'){
 
                     localStorage.setItem('token', JSON.stringify(payload?.data?.accessToken));

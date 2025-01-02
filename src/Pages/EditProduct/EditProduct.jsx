@@ -1,14 +1,17 @@
 import React, { useRef, useState } from "react";
 import { Input, Button, Upload, Form } from "antd";
-import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
-import img from '../../assets/images/edit.jpg'
 import { IoMdArrowBack } from "react-icons/io";
 import { CiImageOn } from "react-icons/ci";
 import JoditEditor from "jodit-react";
 import { useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useGetSingleProductQuery } from "../../redux/Api/productManageApi";
+import {  imageUrl } from "../../redux/Api/baseApi";
 
 const EditProduct = () => {
+    const [form] = Form.useForm()
+    const { id } = useParams()
+    const { data: ProductDetails } = useGetSingleProductQuery(id)
     const [description, setDescription] = useState("");
     const [content, setContent] = useState('');
     const [fileList, setFileList] = useState([]);
@@ -24,6 +27,29 @@ const EditProduct = () => {
     const handleFinish = (values) => {
         console.log("Form Submitted: ", values, description);
     };
+    console.log(ProductDetails?.data);
+
+    useEffect(() => {
+
+        if (ProductDetails?.data) {
+
+            setFileList(
+                ProductDetails?.data?.product_image?.map((url , i)=>({
+                    uid : i,
+                    name : `image-${i}`,
+                    status : 'done',
+                    url : `${imageUrl}${url}`
+                }))
+            )
+            setContent(ProductDetails?.data?.description)
+            form.setFieldsValue({
+                productName: ProductDetails?.data?.name,
+                regularPrice: ProductDetails?.data?.price,
+                store: ProductDetails?.data?.store
+            })
+        }
+
+    }, [ProductDetails?.data])
 
 
     const config = {
@@ -40,10 +66,8 @@ const EditProduct = () => {
             'align'
         ]
     }
+  console.log(fileList);
 
-    useEffect(()=>{
-        setContent("")
-    },[])
     return (
         <div className=" p-6 space-y-8">
             {/* Header */}
@@ -54,7 +78,7 @@ const EditProduct = () => {
                 <h2 className="text-2xl font-semibold ml-1">Edit Product</h2>
             </div>
 
-            <Form onFinish={handleFinish} layout="vertical">
+            <Form onFinish={handleFinish} layout="vertical" form={form} >
                 {/* Product Image */}
                 <div className="grid grid-cols-2 gap-5">
                     <div style={{ width: '100%' }} >

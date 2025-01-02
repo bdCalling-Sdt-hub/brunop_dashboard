@@ -108,7 +108,7 @@ const ProductManage = () => {
             key: "action",
             render: (_, record) => (
                 <div className="flex gap-5 space-x-2">
-                    <Link to={'/product-manage/:id'}
+                    <Link to={`/product-manage/${record?.key}`}
                         className='border-none'
                     >
                         <CiEdit size={25} />

@@ -29,7 +29,15 @@ const productManageApi = baseApi.injectEndpoints({
                 }
             },
             invalidatesTags: ['AllProduct']
+        }),
+        getSingleProduct : builder.query({
+            query : (id)=>{
+                return {
+                    url : `/products/get-details-admin/${id}`,
+                    method : "GET"
+                }
+            }
         })
     })
 })
-export const { useGetAllProductQuery, useDeleteProductMutation , useAddNewProductMutation } = productManageApi
+export const { useGetAllProductQuery, useDeleteProductMutation , useAddNewProductMutation , useGetSingleProductQuery } = productManageApi
