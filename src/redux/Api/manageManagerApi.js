@@ -40,6 +40,26 @@ const manageManagerApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["manager"],
     }),
+
+    deleteFeedback: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/notification/delete-feedback?id=${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["manager"],
+    }),
+
+    // Existing endpoints...
+    blockUnblockManager: builder.mutation({
+      query: (data) => ({
+        url: "/dashboard/block-unblock",
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["manager"],
+    }),
   }),
 });
 
@@ -48,4 +68,6 @@ export const {
   useGetAllFeedBackQuery,
   useReplyFeedbackMutation,
   useCreateManagerMutation,
+  useDeleteFeedbackMutation,
+  useBlockUnblockManagerMutation,
 } = manageManagerApi;

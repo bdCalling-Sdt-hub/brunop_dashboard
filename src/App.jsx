@@ -15,8 +15,8 @@ function App() {
   const { data: getTotalUser } = useTotalUserCountQuery();
   const { data: getRequestUser } = useGetPendingPremierUserQuery();
 
-  console.log(getTotalUser?.data);
-  console.log("Data", getRequestUser);
+  // console.log(getTotalUser?.data);
+  // console.log("Data", getRequestUser);
 
   const tableData = getRequestUser?.data?.data?.slice(0, 3)?.map((user, i) => {
     return {

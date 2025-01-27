@@ -136,6 +136,7 @@ const ShippingManagementTable = ({ data: shippingInfo, page, setPage }) => {
       title: "Shipping Info",
       dataIndex: "shippingInfo",
       key: "shippingInfo",
+      width: "300px",
     },
 
     {

@@ -1,19 +1,33 @@
-import React from 'react'
-import { Navigate, useLocation } from 'react-router-dom'
-import { useGetProfileQuery } from '../redux/Api/userApi';
-import { Skeleton } from 'antd';
+import { Skeleton } from "antd";
+import { Navigate, useLocation } from "react-router-dom";
+import { useGetProfileQuery } from "../redux/Api/userApi";
 
-const PrivateRoute = ({children}) => {
-    const location = useLocation()
-    const { data: getUserInfo,isError, isLoading  , isFetching} = useGetProfileQuery();
-    
-    if(isLoading || isFetching){
-        return <div className="flex items-center justify-center"><Skeleton active /></div>;
-    }
-    if(isError || !getUserInfo?.data?.email || getUserInfo?.data?.role !== 'ADMIN' ){
-        return <Navigate to={'/auth/login'}  state={{ from: location }} />
-    }
-  return children
-}
+// eslint-disable-next-line react/prop-types
+const PrivateRoute = ({ children }) => {
+  const location = useLocation();
+  const {
+    data: getUserInfo,
+    isError,
+    isLoading,
+    isFetching,
+  } = useGetProfileQuery();
+  console.log(getUserInfo?.data?.authId?.role?.email);
 
-export default PrivateRoute
+  if (isLoading || isFetching) {
+    return (
+      <div className="flex items-center justify-center">
+        <Skeleton active />
+      </div>
+    );
+  }
+  if (
+    isError ||
+    !getUserInfo?.data?.authId?.email ||
+    getUserInfo?.data?.authId?.role !== "ADMIN"
+  ) {
+    return <Navigate to={"/auth/login"} state={{ from: location }} />;
+  }
+  return children;
+};
+
+export default PrivateRoute;

@@ -28,12 +28,17 @@ import Terms from "../Pages/Terms";
 import Transaction from "../Pages/Transaction/Transaction.jsx";
 import UserDetails from "../Pages/UserDetails.jsx";
 import PrivateLogin from "./PrivateLogin.jsx";
+import PrivateRoute from "./PrivateRoute.jsx";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
-    //   errorElement: <ErrorPage />,
+    element: (
+      <PrivateRoute>
+        <Root />
+      </PrivateRoute>
+    ),
+    // errorElement: <ErrorPage />,+
     children: [
       {
         path: "/",

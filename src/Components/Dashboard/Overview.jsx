@@ -26,7 +26,7 @@ const Overview = () => {
     };
   });
 
-  console.log(userGrowth);
+  // console.log(userGrowth);
 
   const handleChange = (value) => {
     setYear(value);
