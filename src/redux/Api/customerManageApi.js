@@ -29,7 +29,7 @@ const customerManageApi = baseApi.injectEndpoints({
     }),
     sendRequestUser: builder.mutation({
       query: (payload) => {
-        console.log("Payload:", payload);
+        // console.log("Payload:", payload);
 
         return {
           url: `/dashboard/send_premium_request?userId=${payload.userId}`,

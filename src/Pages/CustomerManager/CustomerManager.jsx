@@ -21,15 +21,18 @@ import {
 
 const CustomerManager = () => {
   const [isPremium, setIsPremium] = useState(true);
+  // eslint-disable-next-line no-unused-vars
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const { data: getAllCustomer } = useGetAllCustomerQuery({
     isPremium,
     searchTerm,
   });
+
   const [blockUnblockCustomer] = useBlockUnblockCustomerMutation();
   const [sendRequestUser] = useSendRequestUserMutation();
-  //   console.log(getAllCustomer?.data?.result);
+
+  // console.log(getAllCustomer);
 
   // formatted customer manage data table
   const data = getAllCustomer?.data?.result?.map((customer, i) => {
@@ -48,8 +51,12 @@ const CustomerManager = () => {
       role: customer?.authId?.role,
       blockEmail: customer?.authId?.email,
       authId: customer?.authId?._id,
+      premiumRequest: customer?.premiumRequest,
+      customerType: customer?.customerType,
     };
   });
+
+  // console.log(data);
 
   //   handle active/deactive
   const handleChange = async (value, manager) => {
@@ -139,16 +146,33 @@ const CustomerManager = () => {
       key: "sentRequest",
       render: (_, record) => {
         return (
-          <Popconfirm
-            title="Are you sure you want to send this request?"
-            onConfirm={() => handleSendRequest(record)} // Call the function when confirmed
-            okText="Yes"
-            cancelText="No"
-          >
-            <button className="bg-black text-white px-2 py-1 rounded-md">
-              Send request
-            </button>
-          </Popconfirm>
+          <>
+            <Popconfirm
+              title="Are you sure you want to send this request?"
+              onConfirm={() => handleSendRequest(record)}
+              okText="Yes"
+              cancelText="No"
+              disabled={
+                record?.premiumRequest === true &&
+                record?.customerType === "PREMIUM"
+              }
+            >
+              <button
+                disabled={
+                  record?.customerType === "PREMIUM" &&
+                  record?.premiumRequest === true
+                }
+                className={`px-2 py-1 rounded-md ${
+                  record?.customerType === "PREMIUM" &&
+                  record?.premiumRequest === true
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-black text-white"
+                }`}
+              >
+                Send request
+              </button>
+            </Popconfirm>
+          </>
         );
       },
     },
@@ -159,6 +183,7 @@ const CustomerManager = () => {
       key: "status",
       render: (_, record) => {
         // console.log(record);
+
         return (
           <div className="flex ">
             <div

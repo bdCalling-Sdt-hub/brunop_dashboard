@@ -29,7 +29,7 @@ const ShippingManagementTable = ({ data: shippingInfo, page, setPage }) => {
       };
 
       const response = await sendNotification(payload);
-      console.log("Response:", response);
+      // console.log("Response:", response);
 
       message.loading({
         content: "Sending notification...",
@@ -148,25 +148,28 @@ const ShippingManagementTable = ({ data: shippingInfo, page, setPage }) => {
       title: "Status",
       dataIndex: "address",
       key: "address",
-      render: (text, record) => (
-        <button
-          onClick={() => showModal(record)}
-          type="button"
-          disabled={!record.address}
-          className={`px-7 py-2 rounded-md text-white ${
-            !record.address === "Provided"
-              ? "bg-gray-300 cursor-not-allowed"
-              : "bg-black hover:bg-gray-800"
-          }`}
-        >
-          {record.shippingInfo === "Provided" ? "Approve" : "Pending"}
-        </button>
-      ),
+      render: (text, record) => {
+        // console.log("Record:", record); // Logs the record for debugging
+        return (
+          <button
+            onClick={() => showModal(record)}
+            type="button"
+            disabled={record.deliveryFee !== null} // Disables the button when deliveryFee is null
+            className={`px-7 py-2 rounded-md text-white ${
+              record.deliveryFee === null
+                ? "bg-black hover:bg-gray-800 " // Disabled button styles
+                : "bg-gray-300 cursor-not-allowed" // Active button styles
+            }`}
+          >
+            {record.deliveryFee === null ? "Pending" : "Accepted"}
+          </button>
+        );
+      },
     },
   ];
 
-  console.log(data);
-  console.log(selectedOrder);
+  // console.log(data);
+  // console.log(selectedOrder);
 
   return (
     <>

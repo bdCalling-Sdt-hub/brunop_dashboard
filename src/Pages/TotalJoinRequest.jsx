@@ -1,54 +1,35 @@
 import { Pagination } from "antd";
-import React from "react";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import car1 from "../assets/images/car.png";
-import car2 from "../assets/images/car2.png";
-import car3 from "../assets/images/car3.png";
-import user from "../assets/images/use4.png";
 import JoinRequest from "../Components/Dashboard/JoinRequest";
+import { useGetPendingPremierUserQuery } from "../redux/Api/dashboardApi";
 
 const TotalJoinRequest = () => {
   const totalItems = 1239; // Total number of items
   const pageSize = 11;
-  const tableData = [
-    {
-      key: 1,
-      id: 1,
-      name: "dindiniya",
+  const { data: getRequestUser } = useGetPendingPremierUserQuery();
+
+  // console.log(getTotalUser);
+  // console.log("Data", getRequestUser);
+
+  const tableData = getRequestUser?.data?.data?.slice(0, 3)?.map((user, i) => {
+    return {
+      key: i + 1,
+      id: i + 1,
+      name: user?.name,
       img: user,
-      contact: "08 +123 456",
+      contact: user?.phone_number,
       email: "bockelboy@att.com",
       location: "Kent, Utha",
       car: "AIM Mychro",
       carLocation: "United State",
       carImg: car1,
-    },
-    {
-      key: 2,
-      id: 2,
-      name: "dindiniya",
-      img: user,
-      contact: "08 +123 456",
-      email: "bockelboy@att.com",
-      location: "Kent, Utha",
-      car: "AIM Mychro",
-      carLocation: "United State",
-      carImg: car2,
-    },
-    {
-      key: 3,
-      id: 3,
-      name: "dindiniya",
-      img: user,
-      contact: "08 +123 456",
-      email: "bockelboy@att.com",
-      location: "Kent, Utha",
-      car: "AIM Mychro",
-      carLocation: "United State",
-      carImg: car3,
-    },
-  ];
+      userId: user?._id,
+    };
+  });
+
+  // console.log(tableData);
 
   return (
     <div className=" bg-white ">

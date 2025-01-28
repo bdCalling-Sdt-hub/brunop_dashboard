@@ -20,7 +20,7 @@ const ManagerManage = () => {
 
   const [openAddModal, setOpenAddModal] = useState(false);
   const data = getAllManager?.data?.data?.map((manager, i) => {
-    console.log(manager);
+    // console.log(manager);
     return {
       key: i + 1,
       name: manager?.name,
@@ -97,7 +97,7 @@ const ManagerManage = () => {
       dataIndex: "status",
       key: "status",
       render: (_, record) => {
-        console.log(record);
+        // console.log(record);
         return (
           <div className="flex ">
             <div

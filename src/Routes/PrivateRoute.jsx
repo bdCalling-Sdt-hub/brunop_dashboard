@@ -11,7 +11,7 @@ const PrivateRoute = ({ children }) => {
     isLoading,
     isFetching,
   } = useGetProfileQuery();
-  console.log(getUserInfo?.data?.authId?.role?.email);
+  // console.log(getUserInfo?.data?.authId?.role?.email);
 
   if (isLoading || isFetching) {
     return (

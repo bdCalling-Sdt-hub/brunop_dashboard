@@ -15,7 +15,7 @@ function App() {
   const { data: getTotalUser } = useTotalUserCountQuery();
   const { data: getRequestUser } = useGetPendingPremierUserQuery();
 
-  // console.log(getTotalUser?.data);
+  // console.log(getTotalUser);
   // console.log("Data", getRequestUser);
 
   const tableData = getRequestUser?.data?.data?.slice(0, 3)?.map((user, i) => {
@@ -30,6 +30,7 @@ function App() {
       car: "AIM Mychro",
       carLocation: "United State",
       carImg: car1,
+      userId: user?._id,
     };
   });
 

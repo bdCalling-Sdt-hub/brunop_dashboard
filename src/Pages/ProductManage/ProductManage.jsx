@@ -17,7 +17,7 @@ const ProductManage = () => {
   const { data: getAllProduct } = useGetAllProductQuery({ page, searchTerm });
   const [deleteProduct] = useDeleteProductMutation();
 
-  console.log(getAllProduct);
+  // console.log(getAllProduct);
 
   // console.log(getAllProduct?.data?.meta);
   const dataSource = getAllProduct?.data?.result?.map((product, i) => {

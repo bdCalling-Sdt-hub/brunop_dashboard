@@ -12,10 +12,10 @@ const Transaction = () => {
     skipPollingIfUnfocused: true,
   });
 
-  console.log(trans?.data?.result);
+  // console.log(trans?.data?.result);
   const data = trans?.data?.result;
   const meta = trans?.data?.meta;
-  console.log(meta);
+  // console.log(meta);
 
   // Table Format
   const columns = [

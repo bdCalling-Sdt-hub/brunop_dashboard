@@ -1,13 +1,28 @@
 import { Table } from "antd";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useCancelUserPremiumRequestMutation } from "../../redux/Api/dashboardApi";
 import AddPremiumModal from "../AddPremiumModal/AddPremiumModal";
 
 // eslint-disable-next-line react/prop-types
 const JoinRequest = ({ tableData, pagination }) => {
   const [openAddModal, setOpenAddModal] = useState(false);
 
-  console.log(tableData);
+  const [cancelUserPremiumRequest] = useCancelUserPremiumRequestMutation();
+
+  // console.log(tableData);
+
+  const handleUserCancelRequest = async (data) => {
+    const payload = {
+      userId: data?.userId,
+    };
+
+    // console.log(payload);
+
+    const res = await cancelUserPremiumRequest(payload);
+    // console.log(res);
+
+    // console.log(data);
+  };
 
   // eslint-disable-next-line no-sparse-arrays
   const columns = [
@@ -59,18 +74,22 @@ const JoinRequest = ({ tableData, pagination }) => {
       key: "key",
       className: "font-lora flex justify-center",
       // eslint-disable-next-line no-unused-vars
-      render: (_) => {
+      render: (_, record) => {
         return (
           <div className="flex justify-center gap-2">
-            <button
+            {/* <button
               onClick={() => setOpenAddModal(true)}
               className="px-6 py-2 rounded-3xl  font-semibold border text-white bg-[#34C759]  hover:text-white"
             >
               Create
-            </button>
-            <Link className="px-6 py-2 rounded-3xl text-red-500 font-semibold  border border-red-500 hover:bg-red-500 hover:text-white">
+            </button> */}
+
+            <button
+              onClick={() => handleUserCancelRequest(record)}
+              className="px-6 py-2 rounded-3xl text-red-500 font-semibold  border border-red-500 hover:bg-red-500 hover:text-white"
+            >
               Cancel
-            </Link>
+            </button>
           </div>
         );
       },

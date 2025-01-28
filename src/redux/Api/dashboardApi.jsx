@@ -68,7 +68,7 @@ const useApi = baseApi.injectEndpoints({
     }),
     editCategory: builder.mutation({
       query: ({ formData, id }) => {
-        console.log(formData, id);
+        // console.log(formData, id);
         return {
           url: `/category/edit/${id}`,
           method: "PATCH",
@@ -174,10 +174,22 @@ const useApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    cancelUserPremiumRequest: builder.mutation({
+      query: (payload) => {
+        // console.log(payload);
+        return {
+          url: `/dashboard/cancle_premium_request?userId=${payload.userId}`,
+          method: "PATCH",
+        };
+      },
+      invalidatesTags: ["blockUser"],
+    }),
   }),
 });
 
 export const {
+  useCancelUserPremiumRequestMutation,
   useTotalUserCountQuery,
   useGetUserGrowthQuery,
   useGetIncomeGrowthQuery,
