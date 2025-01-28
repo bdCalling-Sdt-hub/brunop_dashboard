@@ -11,7 +11,7 @@ const UpdatePassword = () => {
   const [conPassError, setConPassError] = useState("");
 
   const onFinish = (values) => {
-    // console.log(values);
+    console.log(values);
     if (values?.password !== values?.confirmPassword) {
       return toast.error("Password dose not matched!");
     }
